@@ -1,0 +1,35 @@
+// Set unifr colors
+$primary: #00134a;
+$orange: #d06516;     // couleur d'accentualisation
+$yellow: #f5bd26;     // Faculté de théologie
+$red: #b81f42;        // Faculté de droit
+$blue: #3984b8;       // Faculté des lettres et des sciences humaines
+$mauve: #a4246a;      // Faculté des sciences économiques et sociales
+$green: #398e55;      // Faculté des sciences et de médecine
+
+$primary-invert: findColorInvert($primary);
+$orange-invert: findColorInvert($orange);
+$yellow-invert: findColorInvert($yellow);
+$red-invert: findColorInvert($red);
+$blue-invert: findColorInvert($blue);
+$mauve-invert: findColorInvert($mauve);
+$green-invert: findColorInvert($green);
+
+// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+$colors: (
+  "white": ($white, $black),
+  "black": ($black, $white),
+  "light": ($light, $light-invert),
+  "dark": ($dark, $dark-invert),
+  "primary": ($primary, $primary-invert),
+  "info": ($info, $info-invert),
+  "success": ($success, $success-invert),
+  "warning": ($warning, $warning-invert),
+  "danger": ($danger, $danger-invert),
+  "orange": ($orange, $orange-invert),
+  "yellow": ($yellow, $yellow-invert),
+  "red": ($red, $red-invert),
+  "blue": ($blue, $blue-invert),
+  "mauve": ($mauve, $mauve-invert),
+  "green": ($green, $green-invert)
+);
