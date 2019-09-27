@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-blue" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-primary is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="https://www.unifr.ch">
         <img src="../assets/logo-unifr.png" width="28" height="28">
@@ -17,26 +17,22 @@
 
     <div id="main-menu" class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item">
-          Home
-        </a>
+        <p class="navbar-item is-italic">Iconography of Play and Games</p>
       </div>
 
       <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons">
-            <a class="button is-primary">
-              <strong>Sign up</strong>
-            </a>
-          </div>
-        </div>
+        <a class="navbar-item" href="#">
+          <span href="#" class="icon is-medium">
+            <i class="fad fa-angle-up fa-2x"></i>
+          </span>
+        </a>
       </div>
     </div>
   </nav>
 </template>
+
 <script>
   export default {
-    name: 'bnavbar',
     props: ['project']
   }
 </script>

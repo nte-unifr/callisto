@@ -1,13 +1,13 @@
 <template>
   <footer class="footer">
-    <div class="container">
+    <div class="container is-fluid">
       <div class="columns">
         <div class="column is-6">
           <aside v-if="project" class="menu">
             <p class="menu-label">
               About {{ project }}
             </p>
-            <span v-html="description"></span>
+            <span v-html="aboutProject"></span>
           </aside>
         </div>
         <div class="column is-3">
@@ -36,12 +36,12 @@
     </div>
   </footer>
 </template>
+
 <script>
   import axios from 'axios'
 
   export default {
-    name: 'bfooter',
-    props: ['project', 'description'],
+    props: ['project', 'aboutProject'],
     data() {
       return {
         projects: [],
@@ -68,6 +68,3 @@
     }
   }
 </script>
-<style lang="scss" scoped>
-  .footer, .menu { font-size: 0.9rem }
-</style>

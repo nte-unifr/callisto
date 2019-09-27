@@ -1,48 +1,40 @@
 <template>
   <div id="app">
     <Navbar :project="project" />
-    <Footer :project="project" :description="description" />
+    <Set />
+    <Footer :project="project" :aboutProject="about" />
   </div>
 </template>
 
 <script>
   import axios from 'axios'
   import Navbar from './components/Navbar.vue'
+  import Set from './components/Set.vue'
   import Footer from './components/Footer.vue'
 
   export default {
     name: 'app',
     components: {
       Navbar,
+      Set,
       Footer
     },
     data() {
       return {
-        slug: 'callisto',
-        project: '',
-        description: ''
+        api: process.env.VUE_APP_API,
+        project: process.env.VUE_APP_TITLE,
+        about: ''
       }
     },
     created() {
-      this.fetchProject()
+      this.fetchAbout()
     },
     methods: {
-      fetchProject() {
-        const url = 'https://eddb.unifr.ch/api/' + this.slug + '/'
-        axios.get(url).then(result => {
-          this.project = result.data.data.api.project_name
-        })
-        axios.get(url + 'items/about').then(result => {
-          this.description = result.data.data[0].content
+      fetchAbout() {
+        axios.get(this.api + 'items/about').then(result => {
+          this.about = result.data.data[0].content
         })
       }
     }
   }
 </script>
-
-<style lang="scss">
-  @import "~bulma/sass/utilities/_all";
-  @import './variables.scss';
-  @import "~bulma";
-  @import "~buefy/src/scss/buefy";
-</style>
