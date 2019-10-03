@@ -18,13 +18,12 @@ $grey-dark: $brown;
 $grey-light: $beige-light;
 $primary: $blue;
 $link: darken($primary, 10%);
-$widescreen-enabled: false;
-$fullhd-enabled: false;
 
 // Update some of Bulma's component variables
 $body-background-color: $beige-lighter;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
+$modal-content-width: 900px;
 
 @import "../../node_modules/bulma/bulma.sass";
