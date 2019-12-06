@@ -1,70 +1,55 @@
 <template>
   <footer class="footer">
-    <div class="container is-fluid">
-      <div class="columns">
+    <div class="container">
+      <div class="columns is-variable is-8">
         <div class="column is-6">
-          <aside v-if="project" class="menu">
-            <p class="menu-label">
-              About {{ project }}
-            </p>
-            <span v-html="aboutProject"></span>
-          </aside>
-        </div>
-        <div class="column is-3">
           <aside class="menu">
             <p class="menu-label">
               About EDDB
             </p>
-            <span v-html="about"></span>
+            <span v-html="eddbAbout"></span>
           </aside>
         </div>
-        <div class="column is-3">
+        <div class="column is-6">
           <aside class="menu">  
             <p class="menu-label">
               EDDB databases
             </p>
-            <ul class="menu-list">
-              <li v-for="project of projects" :key="project.id">
-                <a :href="project.url">{{ project.title }}</a>
-              </li>
-            </ul>
+            <div class="columns is-multiline is-variable is-2">
+              <div class="column is-one-third" v-for="project of eddbProjects" :key="project.id">
+                <a class="button is-primary is-outlined is-fullwidth" :href="project.url">{{ project.title }}</a>
+              </div>
+            </div>
           </aside>
         </div>
       </div>
       <hr>
-      <p>© 2019 Centre NTE, Université de Fribourg</p>
+      <div class="columns is-variable is-8">
+        <div class="column is-3">
+          <img src="../assets/unifr-full.png">
+        </div>
+        <div class="column has-text-right">
+          © 2019 Centre NTE, Université de Fribourg
+        </div>
+      </div>
     </div>
   </footer>
 </template>
 
 <script>
-  import axios from 'axios'
+  import directus from '../mixins/Directus.vue'
 
   export default {
-    props: ['project', 'aboutProject'],
+    mixins: [directus],
     data() {
       return {
-        projects: [],
-        about: ''
+        eddbProjects: [],
+        eddbAbout: ''
       }
     },
     created() {
-      this.fetchProjects()
-      this.fetchAbout()
-    },
-    methods: {
-      fetchProjects() {
-        const url = 'https://eddb.unifr.ch/api/_/items/projects?sort=title'
-        axios.get(url).then(result => {
-          this.projects = result.data.data
-        })
-      },
-      fetchAbout() {
-        const url = 'https://eddb.unifr.ch/api/_/items/about'
-        axios.get(url).then(result => {
-          this.about = result.data.data[0].content
-        })
-      }
+      this.fetchEddbProjects()
+      this.fetchEddbAbout()
     }
   }
 </script>

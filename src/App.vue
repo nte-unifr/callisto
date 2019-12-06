@@ -2,7 +2,7 @@
   <div id="app">
     <Navbar :project="project" />
     <Set />
-    <Footer :project="project" />
+    <Footer />
     <router-view></router-view>
   </div>
 </template>

@@ -20,6 +20,11 @@
           },
           item: {
             fields: '*,materiau.nom,categorie.nom,periode.nom,centre_producteur.nom,forme.nom,sujets.sujet.nom,image.filename',
+          },
+          eddb: {
+            project: '_',
+            about: '/items/about',
+            projects: '/items/projects?sort=title'
           }
         }
       }
@@ -83,8 +88,15 @@
           }
         })
       },
-      fetchEddb() {
-        return ''
+      fetchEddbAbout() {
+        axios.get(this.directus.api + '/' + this.directus.eddb.project + this.directus.eddb.about).then(result => {
+          this.eddbAbout = result.data.data[0].content
+        })
+      },
+      fetchEddbProjects() {
+        axios.get(this.directus.api + '/' + this.directus.eddb.project + this.directus.eddb.projects).then(result => {
+          this.eddbProjects = result.data.data
+        })
       },
       getThumbnail(file, size) {
         if (size === 200) {
