@@ -8,7 +8,7 @@
             {{ title }}
           </p>
           <p class="card-header-icon">
-            {{ id }}&nbsp;<i class="fad fa-hexagon"></i>
+            {{ id }}&nbsp;<i class="fad fa-hashtag"></i>
           </p>
         </header>
         <div class="card-content">

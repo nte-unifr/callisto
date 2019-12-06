@@ -5,7 +5,7 @@
         {{ entity.titre }}
       </p>
       <p class="card-header-icon">
-        {{ entity.id }}&nbsp;<i class="fad fa-hexagon"></i>
+        {{ entity.id }}&nbsp;<i class="fad fa-hashtag"></i>
       </p>
     </header>
     <div class="card-content">
