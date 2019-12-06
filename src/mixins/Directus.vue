@@ -11,6 +11,7 @@
           api: 'https://eddb.unifr.ch/api',
           path: '/items/Fiches',
           project: 'callisto',
+          about: '/items/about?fields=content,media.*',
           set: {
             fields: 'id,titre,description,datation_debut,datation_fin,image.data,materiau.nom,categorie.nom,periode.nom,forme.nom,sujets.sujet.nom',
             sort: 'id',
@@ -39,6 +40,7 @@
           return []
         }
       },
+      // item has title, description, image, properties[], sources[]
       fetchItem() {
         axios.get(this.directus.api + '/' + this.directus.project + this.directus.path + '/' + this.id + '?fields=' + this.directus.item.fields).then(result => {
           let data = result.data.data
@@ -65,13 +67,24 @@
           if (_.has(data, 'sources')) { sources.push({ attr: "", val: data.sources }) }
           if (_.has(data, 'bibliographie')) { sources.push({ attr: "Bibliographie", val: data.bibliographie }) }
           
-          // item has title, description, image, properties[], sources[]
           this.title = data.titre
           this.description = this.prettyText(data.description)
           this.image = data.image.filename
           this.properties = properties
           this.sources = sources
         })
+      },
+      fetchAbout() {
+        axios.get(this.directus.api + '/' + this.directus.project + this.directus.about).then(result => {
+          let data = result.data.data[0]
+          this.about = data.content
+          if (_.has(data, 'media.data.full_url')) {
+            this.aboutImage = data.media.data.full_url
+          }
+        })
+      },
+      fetchEddb() {
+        return ''
       },
       getThumbnail(file, size) {
         if (size === 200) {
