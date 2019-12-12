@@ -1,6 +1,6 @@
 <template>
   <div class="modal is-active">
-    <div class="modal-background" @click="goBack"></div>
+    <div class="modal-background" @click="closeModal"></div>
     <div class="modal-content">
       <div class="card">
         <div class="card-image">
@@ -13,16 +13,16 @@
         </div>
       </div>
     </div>
-    <button class="modal-close is-large" aria-label="close" @click="goBack"></button>
+    <button class="modal-close is-large" aria-label="close" @click="closeModal"></button>
   </div>
 </template>
 
 <script>
-  import rooting from '../mixins/Rooting.vue'
+  import utils from '../mixins/Utils.vue'
   import directus from '../mixins/Directus.vue'
 
   export default {
-    mixins: [rooting, directus],
+    mixins: [utils, directus],
     data() {
       return {
         about: '',
@@ -30,6 +30,7 @@
       }
     },
     created() {
+      this.clipHtml()
       this.fetchAbout()
     }
   }

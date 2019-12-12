@@ -12,7 +12,7 @@
       <div class="media">
         <div v-if="entity.image" class="media-left">
           <figure class="image is-96x96">
-            <img :src="entity.image.data.thumbnails[0].url" alt="">
+            <img :src="getThumbnail(entity.image.filename, 400)" alt="">
           </figure>
         </div>
         <div class="media-content">
@@ -24,22 +24,20 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a @click="show(true)" class="card-footer-item"><span class="icon"><i class="fad fa-file-search"></i></span> Details</a>
+      <router-link :to="{ name: 'itemDescription', params: { id: entity.id }}" class="card-footer-item">
+        <span class="icon"><i class="fad fa-file-search"></i></span> Details
+      </router-link>
     </footer>
-    <Item :id="entity.id" :isActive="shown" @show="show" />
   </div>
 </template>
 
 <script>
   import _ from 'lodash'
-  import prettifier from '../mixins/Prettifier.vue'
-  import Item from './Item.vue'
+  import utils from '../mixins/Utils.vue'
+  import directus from '../mixins/Directus.vue'
 
   export default {
-    components: {
-      Item
-    },
-    mixins: [prettifier],
+    mixins: [utils, directus],
     data() {
       return {
         shown: false,
@@ -50,7 +48,7 @@
     },
     computed: {
       description: function() {
-        return this.prettyText(this.entity.description)
+        return this.pretty(this.entity.description)
       },
       tags: function() {
         let tags = []
@@ -65,11 +63,6 @@
           }
         }
         return tags
-      }
-    },
-    methods: {
-      show: function(status) {
-        this.shown = status
       }
     }
   }

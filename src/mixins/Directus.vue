@@ -1,10 +1,8 @@
 <script>
   import axios from 'axios'
   import _ from 'lodash'
-  import prettifier from '../mixins/Prettifier.vue'
 
   export default {
-    mixins: [prettifier],
     data() {
       return {
         directus: {
@@ -13,7 +11,7 @@
           project: 'callisto',
           about: '/items/about?fields=content,media.*',
           set: {
-            fields: 'id,titre,description,datation_debut,datation_fin,image.data,materiau.nom,categorie.nom,periode.nom,forme.nom,sujets.sujet.nom',
+            fields: 'id,titre,description,datation_debut,datation_fin,image.filename,materiau.nom,categorie.nom,periode.nom,forme.nom,sujets.sujet.nom',
             sort: 'id',
             limit: '-1',
             status: 'published'
@@ -46,11 +44,12 @@
         }
       },
       // item has title, description, image, properties[], sources[]
-      fetchItem() {
-        axios.get(this.directus.api + '/' + this.directus.project + this.directus.path + '/' + this.id + '?fields=' + this.directus.item.fields).then(result => {
+      fetchItem(id) {
+        axios.get(this.directus.api + '/' + this.directus.project + this.directus.path + '/' + id + '?fields=' + this.directus.item.fields).then(result => {
           let data = result.data.data
           let properties = []
           let sources = []
+          let images = []
 
           if (_.has(data, 'datation_debut') && _.has(data, 'datation_fin')) { properties.push({ attr: "Datation", val: data.datation_debut + ' à ' + data.datation_fin}) }
           if (_.has(data, 'periode.nom')) { properties.push({ attr: "Période", val: data.periode.nom }) }
@@ -71,10 +70,13 @@
 
           if (_.has(data, 'sources')) { sources.push({ attr: "", val: data.sources }) }
           if (_.has(data, 'bibliographie')) { sources.push({ attr: "Bibliographie", val: data.bibliographie }) }
+
+          images.push(data.image.filename)
           
+          this.id = id
           this.title = data.titre
-          this.description = this.prettyText(data.description)
-          this.image = data.image.filename
+          this.description = data.description
+          this.images = images
           this.properties = properties
           this.sources = sources
         })
@@ -99,11 +101,13 @@
         })
       },
       getThumbnail(file, size) {
-        if (size === 200) {
-          return this.directus.api + '/thumbnail/' + this.directus.project + '/200/200/crop/best/' + file
-        } else if (size === 600) {
-          return this.directus.api + '/thumbnail/' + this.directus.project + '/600/600/crop/best/' + file
+        let x = 400
+        let type = 'crop'
+        if (size === 800 || size === 2400) {
+          x = size
+          type = 'contain'
         }
+        return this.directus.api + '/thumbnail/' + this.directus.project + '/' + x + '/' + x + '/' + type + '/best/' + file
       }
     }
   }
