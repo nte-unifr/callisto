@@ -3,11 +3,6 @@
     <div class="modal-background" @click="goBack"></div>
     <div class="modal-content">
       <div class="card">
-        <header class="card-header">
-          <p class="card-header-title">
-            About
-          </p>
-        </header>
         <div class="card-image">
           <figure v-if="aboutImage" class="image">
             <img :src="aboutImage" alt="" />
