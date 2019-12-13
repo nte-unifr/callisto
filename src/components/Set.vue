@@ -23,6 +23,15 @@
         </div>
         <Sorter @sort="setOrder" />
       </nav>
+      <div class="level">
+        <div class="level-left">
+          <Picker name="Periodes" @pick="setFilter" />
+          <Picker name="Materiaux" @pick="setFilter" />
+          <Picker name="Categories" @pick="setFilter" />
+          <Picker name="Formes" @pick="setFilter" />
+          <Picker name="Sujets" @pick="setFilter" />
+        </div>
+      </div>
       <progress class="progress is-primary" max="100" v-bind:class="{ 'is-hidden': loaded }"></progress>
       <div class="columns is-multiline">
         <div v-for="item in konmariItems" :key="item.id" class="column is-half-tablet is-one-third-desktop is-one-quarter-fullhd" :data-id="item.id">
@@ -38,10 +47,11 @@
   import directus from '../mixins/Directus.vue'
   import Card from './Card.vue'
   import Sorter from './Sorter.vue'
+  import Picker from './Picker.vue'
 
   export default {
     components: {
-      Card, Sorter
+      Card, Sorter, Picker
     },
     mixins: [directus],
     data() {
@@ -50,7 +60,12 @@
         iItems: [],
         items: [],
         order: 'id',
-        title: ''
+        title: '',
+        periode: '',
+        materiau: '',
+        categorie: '',
+        forme: '',
+        sujet: ''
       }
     },
     async created() {
@@ -61,11 +76,49 @@
       konmariItems() {
         let konmari = this.items
         let title = this.title
+
         if (title != '') {
           konmari = _.filter(konmari, function(i) {
             return _.includes(_.toLower(i.titre), _.toLower(title))
           })
         }
+
+        if (this.periode != '') {
+          let periode = this.periode.id
+          konmari = _.filter(konmari, function(i) {
+            return i.periode != null && i.periode.id === periode
+          })
+        }
+
+        if (this.materiau != '') {
+          let materiau = this.materiau.id
+          konmari = _.filter(konmari, function(i) {
+            return i.materiau != null && i.materiau.id === materiau
+          })
+        }
+
+        if (this.categorie != '') {
+          let categorie = this.categorie.id
+          konmari = _.filter(konmari, function(i) {
+            return i.categorie != null && i.categorie.id === categorie
+          })
+        }
+
+        if (this.forme != '') {
+          let forme = this.forme.id
+          konmari = _.filter(konmari, function(i) {
+            return i.forme != null && i.forme.id === forme
+          })
+        }
+
+        if (this.sujet != '') {
+          let sujet = this.sujet.id
+          konmari = _.filter(konmari, function(i) {
+            let ids = _.map(i.sujets, 'sujet.id')
+            return _.includes(ids, sujet)
+          })
+        }
+
         return _.sortBy(konmari, [this.order])
       }
     },
@@ -75,6 +128,19 @@
           this.order = 'titre'
         } else {
           this.order = 'id'
+        }
+      },
+      setFilter(name, value) {
+        if (name === 'Periodes') {
+          this.periode = value
+        } else if (name === 'Materiaux') {
+          this.materiau = value
+        } else if (name === 'Categories') {
+          this.categorie = value
+        } else if (name === 'Formes') {
+          this.forme = value
+        } else if (name === 'Sujets') {
+          this.sujet = value
         }
       }
     }

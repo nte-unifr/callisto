@@ -11,7 +11,7 @@
           project: 'callisto',
           about: '/items/about?fields=content,media.*',
           set: {
-            fields: 'id,titre,description,datation_debut,datation_fin,image.filename,materiau.nom,categorie.nom,periode.nom,forme.nom,sujets.sujet.nom',
+            fields: 'id,titre,description,datation_debut,datation_fin,image.filename,materiau.*,categorie.*,periode.*,forme.*,sujets.sujet.*',
             sort: 'id',
             limit: '-1',
             status: 'published'
@@ -71,7 +71,7 @@
           if (_.has(data, 'sources')) { sources.push({ attr: "", val: data.sources }) }
           if (_.has(data, 'bibliographie')) { sources.push({ attr: "Bibliographie", val: data.bibliographie }) }
 
-          images.push(data.image.filename)
+          if (_.has(data, 'image') && data.image != null) { images.push(data.image.filename) }
           
           this.id = id
           this.title = data.titre
@@ -79,6 +79,11 @@
           this.images = images
           this.properties = properties
           this.sources = sources
+        })
+      },
+      async fetchFilters(filter) {
+        axios.get(this.directus.api + '/' + this.directus.project + '/items/' + filter + '?fields=*&sort=nom').then(result => {
+          this.choices = result.data.data
         })
       },
       fetchAbout() {
