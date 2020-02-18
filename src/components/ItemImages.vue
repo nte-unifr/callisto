@@ -2,7 +2,7 @@
   <div class="columns">
     <div class="column">
       <figure class="has-text-centered">
-        <img class="item-image" v-bind:src="getThumbnail(images[0], 800)" v-bind:data-zoom="getThumbnail(images[0], 2400)">
+        <img class="item-image" v-bind:src="getThumbnail(images[0], '800co')" v-bind:data-zoom="getThumbnail(images[0], '2400co')">
       </figure>
     </div>
     <div class="column item-magnifier">

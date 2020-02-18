@@ -12,7 +12,7 @@
       <div class="media">
         <div v-if="entity.image" class="media-left">
           <figure class="image is-96x96">
-            <img :src="getThumbnail(entity.image.filename, 400)" alt="">
+            <img :src="getThumbnail(entity.image.private_hash, '400cr')" alt="">
           </figure>
         </div>
         <div class="media-content">

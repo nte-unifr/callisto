@@ -6,21 +6,21 @@
     data() {
       return {
         directus: {
-          api: 'https://eddb.unifr.ch/api',
+          api: 'https://eddb.unifr.ch',
           path: '/items/Fiches',
           project: 'callisto',
           about: '/items/about?fields=content,media.*',
           set: {
-            fields: 'id,titre,description,datation_debut,datation_fin,image.filename,materiau.*,categorie.*,periode.*,forme.*,sujets.sujet.*',
+            fields: 'id,titre,description,datation_debut,datation_fin,image.private_hash,materiau.*,categorie.*,periode.*,forme.*,sujets.sujet.*',
             sort: 'id',
             limit: '-1',
             status: 'published'
           },
           item: {
-            fields: '*,materiau.nom,categorie.nom,periode.nom,centre_producteur.nom,forme.nom,sujets.sujet.nom,image.filename',
+            fields: '*,materiau.nom,categorie.nom,periode.nom,centre_producteur.nom,forme.nom,sujets.sujet.nom,image.private_hash',
           },
           eddb: {
-            project: '_',
+            project: 'nte',
             about: '/items/about',
             projects: '/items/projects?sort=title'
           }
@@ -71,7 +71,7 @@
           if (_.has(data, 'sources')) { sources.push({ attr: "", val: data.sources }) }
           if (_.has(data, 'bibliographie')) { sources.push({ attr: "Bibliographie", val: data.bibliographie }) }
 
-          if (_.has(data, 'image') && data.image != null) { images.push(data.image.filename) }
+          if (_.has(data, 'image') && data.image != null) { images.push(data.image.private_hash) }
           
           this.id = id
           this.title = data.titre
@@ -105,14 +105,9 @@
           this.eddbProjects = result.data.data
         })
       },
-      getThumbnail(file, size) {
-        let x = 400
-        let type = 'crop'
-        if (size === 800 || size === 2400) {
-          x = size
-          type = 'contain'
-        }
-        return this.directus.api + '/thumbnail/' + this.directus.project + '/' + x + '/' + x + '/' + type + '/best/' + file
+      getThumbnail(hash, key) {
+        // keys are 400cr, 800co, 2400co
+        return this.directus.api + '/' + this.directus.project + '/assets/' + hash + '?key=' + key
       }
     }
   }
