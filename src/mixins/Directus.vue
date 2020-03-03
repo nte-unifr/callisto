@@ -45,7 +45,8 @@
       },
       // item has title, description, image, properties[], sources[]
       fetchItem(id) {
-        axios.get(this.directus.api + '/' + this.directus.project + this.directus.path + '/' + id + '?fields=' + this.directus.item.fields).then(result => {
+        axios.get(this.directus.api + '/' + this.directus.project + this.directus.path + '/' + id + '?fields=' + this.directus.item.fields)
+        .then(result => {
           let data = result.data.data
           let properties = []
           let sources = []
@@ -79,6 +80,11 @@
           this.images = images
           this.properties = properties
           this.sources = sources
+          this.error = ''
+        })
+        .catch(error => {
+          this.title = "Error " + error.response.status
+          this.error = error.response.statusText
         })
       },
       async fetchFilters(filter) {

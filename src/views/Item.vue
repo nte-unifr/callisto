@@ -17,6 +17,11 @@
           </div>
         </header>
         <div class="card-content">
+          <article v-if="error" class="message is-danger">
+            <div class="message-body">
+              {{ error }}
+            </div>
+          </article>
           <ItemTabs :description="description" :images="images" :properties="properties" :sources="sources" />
           <router-view :description="description" :images="images" :properties="properties" :sources="sources"></router-view>
         </div>
@@ -42,6 +47,7 @@
         images: [],
         properties: [],
         sources: [],
+        error: ''
       }
     },
     created() {

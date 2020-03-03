@@ -20,6 +20,16 @@
               </p>
             </div>
           </div>
+          <div class="level-item">
+            <div class="field has-addons">
+              <p class="control">
+                <input v-model.lazy="openID" class="input" type="text" placeholder="Open by ID" size="8">
+              </p>
+              <p class="control">
+                <button @click="open" class="button">Open</button>
+              </p>
+            </div>
+          </div>
         </div>
         <Sorter @sort="setOrder" />
       </nav>
@@ -65,7 +75,8 @@
         materiau: '',
         categorie: '',
         forme: '',
-        sujet: ''
+        sujet: '',
+        openID: ''
       }
     },
     async created() {
@@ -142,6 +153,9 @@
         } else if (name === 'Sujets') {
           this.sujet = value
         }
+      },
+      open() {
+        this.$router.push({ name: 'itemDescription', params: { id: this.openID } })
       }
     }
   }
