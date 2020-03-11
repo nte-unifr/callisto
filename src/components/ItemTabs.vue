@@ -11,7 +11,7 @@
           <a :href="href" @click="navigate"><span class="icon"><i class="fad fa-table"></i></span> Properties</a>
         </li>
       </router-link>
-      <router-link v-if="images.length > 0" :to="{ name: 'itemImages' }" active-class="is-active" v-slot="{ href, route, navigate, isActive, isExactActive }">
+      <router-link v-if="images.length > 0 && pimage" :to="{ name: 'itemImages' }" active-class="is-active" v-slot="{ href, route, navigate, isActive, isExactActive }">
         <li :class="[isExactActive && 'is-active']">
           <a :href="href" @click="navigate"><span class="icon"><i class="fad fa-images"></i></span> Images</a>
         </li>
@@ -27,6 +27,6 @@
 
 <script>
   export default {
-    props: ['description', 'properties', 'images', 'sources'],
+    props: ['description', 'properties', 'images', 'pimage', 'sources'],
   }
 </script>

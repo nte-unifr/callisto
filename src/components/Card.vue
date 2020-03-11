@@ -10,7 +10,7 @@
     </header>
     <div class="card-content">
       <div class="media">
-        <div v-if="entity.image" class="media-left">
+        <div v-if="entity.image && entity.image_publique" class="media-left">
           <figure class="image is-96x96">
             <img :src="getThumbnail(entity.image.private_hash, '400cr')" alt="">
           </figure>

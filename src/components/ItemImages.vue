@@ -1,5 +1,5 @@
 <template>
-  <div class="columns">
+  <div class="columns" v-if="pimage">
     <div class="column">
       <figure class="has-text-centered">
         <img class="item-image" v-bind:src="getThumbnail(images[0], '800co')" v-bind:data-zoom="getThumbnail(images[0], '2400co')">
@@ -29,7 +29,7 @@
 
   export default {
     mixins: [directus],
-    props: ['images'],
+    props: ['images', 'pimage'],
     mounted() {
       let itemImage = this.$el.querySelector(".item-image")
       let itemMagnifier = this.$el.querySelector(".item-magnifier")

@@ -5,7 +5,7 @@
       <div class="card">
         <header class="card-header">
           <div class="card-header-icon">
-            <figure class="image is-96x96" v-if="images[0]">
+            <figure class="image is-96x96" v-if="images[0] && pimage">
               <img v-bind:src="getThumbnail(images[0], '400cr')">
             </figure>
           </div>
@@ -22,8 +22,8 @@
               {{ error }}
             </div>
           </article>
-          <ItemTabs :description="description" :images="images" :properties="properties" :sources="sources" />
-          <router-view :description="description" :images="images" :properties="properties" :sources="sources"></router-view>
+          <ItemTabs :description="description" :images="images" :pimage="pimage" :properties="properties" :sources="sources" />
+          <router-view :description="description" :images="images" :pimage="pimage" :properties="properties" :sources="sources"></router-view>
         </div>
       </div>
     </div>

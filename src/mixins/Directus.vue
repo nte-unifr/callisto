@@ -11,7 +11,7 @@
           project: 'callisto',
           about: '/items/about?fields=content,media.*',
           set: {
-            fields: 'id,titre,description,datation_debut,datation_fin,image.private_hash,materiau.*,categorie.*,periode.*,forme.*,sujets.sujet.*',
+            fields: 'id,titre,description,datation_debut,datation_fin,image.private_hash,materiau.*,categorie.*,periode.*,forme.*,sujets.sujet.*,image_publique',
             sort: 'id',
             limit: '-1',
             status: 'published'
@@ -81,6 +81,7 @@
           this.properties = properties
           this.sources = sources
           this.error = ''
+          this.pimage = data.image_publique
         })
         .catch(error => {
           this.title = "Error " + error.response.status
