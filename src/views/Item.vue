@@ -6,7 +6,7 @@
         <header class="card-header">
           <div class="card-header-icon">
             <figure class="image is-96x96" v-if="images[0] && pimage">
-              <img v-bind:src="getThumbnail(images[0], '400cr')">
+              <img v-bind:src="getThumbnail(images[0], '400cro')">
             </figure>
           </div>
           <div class="card-header-title">

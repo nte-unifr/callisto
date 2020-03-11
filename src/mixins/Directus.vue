@@ -113,7 +113,7 @@
         })
       },
       getThumbnail(hash, key) {
-        // keys are 400cr, 800co, 2400co
+        // keys are 400cro, 800con, 2400con
         return this.directus.api + '/' + this.directus.project + '/assets/' + hash + '?key=' + key
       }
     }

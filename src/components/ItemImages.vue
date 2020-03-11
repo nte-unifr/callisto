@@ -2,7 +2,7 @@
   <div class="columns" v-if="pimage">
     <div class="column">
       <figure class="has-text-centered">
-        <img class="item-image" v-bind:src="getThumbnail(images[0], '800co')" v-bind:data-zoom="getThumbnail(images[0], '2400co')">
+        <img class="item-image" v-bind:src="getThumbnail(images[0], '800con')" v-bind:data-zoom="getThumbnail(images[0], '2400con')">
       </figure>
     </div>
     <div class="column item-magnifier">
