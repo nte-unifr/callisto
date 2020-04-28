@@ -6,9 +6,9 @@
           <div class="dropdown-trigger">
             <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
               <span class="icon is-small">
-                <i class="fad fa-list-alt"></i>
+                <i class="fad fa-text"></i>
               </span>
-              <span>{{ title }}</span>
+              <span>{{ name }}</span>
               <span class="icon is-small">
                 <i class="fas fa-angle-down" aria-hidden="true"></i>
               </span>
@@ -16,20 +16,20 @@
           </div>
           <div class="dropdown-menu" id="dropdown-menu" role="menu">
             <div class="dropdown-content">
-              <a
-                v-for="choice in choices"
-                :key="choice.id"
-                href="#"
-                class="dropdown-item"
-                @click="pick(choice)"
-              >{{ choice.nom }}</a>
+              <div class="dropdown-item">
+                <input class="input" type="text" v-model="input" placeholder="Enter some text.." />
+              </div>
+              <hr class="dropdown-divider" />
+              <div class="dropdown-item">
+                <button @click="pick(true)" class="button is-small is-primary is-fullwidth">Apply</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <p class="control" v-if="choice">
-        <button @click="pick('')" class="button is-primary">
-          {{ choice.nom }}&nbsp;
+        <button @click="pick(false)" class="button is-primary">
+          {{ choice }}&nbsp;
           <i class="fad fa-times-circle"></i>
         </button>
       </p>
@@ -38,38 +38,23 @@
 </template>
 
 <script>
-import _ from "lodash";
-import directus from "../mixins/Directus.vue";
-
 export default {
   props: ["name"],
-  mixins: [directus],
   data() {
     return {
-      choices: [],
+      input: "",
       choice: ""
     };
   },
-  computed: {
-    title: function() {
-      return _.replace(this.name, "_", " ");
-    }
-  },
-  async created() {
-    this.fetchFilters(this.name);
-  },
   methods: {
-    pick: function(value) {
-      this.choice = value;
+    pick: function(state) {
+      if (state) {
+        this.choice = this.input;
+      } else {
+        this.choice = this.input = "";
+      }
       this.$emit("pick", this.name, this.choice);
     }
   }
 };
 </script>
-
-<style scoped>
-.dropdown-content {
-  max-height: 50em;
-  overflow: auto;
-}
-</style>

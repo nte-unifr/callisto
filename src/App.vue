@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar :project="project" />
+    <Navbar />
     <Set />
     <Footer />
     <router-view></router-view>
@@ -8,17 +8,17 @@
 </template>
 
 <script>
-import Navbar from './components/Navbar.vue'
-import Set from './components/Set.vue'
-import Footer from './components/Footer.vue'
+import Navbar from "./components/Navbar.vue";
+import Set from "./components/Set.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: { Navbar, Set, Footer },
   data() {
     return {
       project: process.env.VUE_APP_TITLE
-    }
+    };
   }
-}
+};
 </script>
