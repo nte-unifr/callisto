@@ -11,7 +11,7 @@
     "start": "npm run css-watch"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.28.0",
     "core-js": "^2.6.5",
     "drift-zoom": "^1.4.0",
     "he": "^1.2.0",
